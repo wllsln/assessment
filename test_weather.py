@@ -77,9 +77,25 @@ class TestWeather:
     def test_valid_dates(self, location):
         '''
         Test that the endpoint properly returns proper payload dates.
-        We should have seven entries for seven dates
+        We should have seven entries for seven dates.
         '''
         response = self.request_with_location(location)
         json_response = response.body
         assert len(json_response) == 7
+
+    @pytest.mark.parametrize("location", valid_locations)
+    def test_valid_temperature(self, location):
+        '''
+        Test that the endpoint properly returns proper payload
+        temperature.
+        "high" and "low" should be float. 
+        Celsius values should be integers.
+        '''
+        response = self.request_with_location(location)
+        json_response = response.body
+        for day in json_response:
+            assert float(day["high"])
+            assert float(day["low"])
+            assert day["high_celsius"].isdigit()
+            assert day["low_celsius"].isdigit()
 
