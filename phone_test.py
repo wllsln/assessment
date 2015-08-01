@@ -22,7 +22,7 @@ def second_largest(arr):
     largest, second = helper(arr[0], arr[1])
 
     for num in arr[2:]:  # start at the third element
-        if largest == second:
+        if largest == second:n
             largest, second = helper(largest, num)
         elif num < second:
             pass
